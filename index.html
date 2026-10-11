@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>CareReach | Healthcare Access Made Simple</title>
+
+    <!-- Leaflet Map -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <canvas id="backgroundCanvas"></canvas>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header>
+
+        <div class="logo">
+            <span class="logo-plus">+</span>
+            CareReach
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#map-section">Nearby Care</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#emergency">Emergency</a>
+        </nav>
+
+        <button class="nav-location-btn"
+            onclick="findLocation()">
+            📍 Find Near Me
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                <span>●</span> HEALTHCARE ACCESS
+            </div>
+
+            <h1>
+                Healthcare
+                <span>within reach.</span>
+            </h1>
+
+            <p>
+                Find the healthcare service you need,
+                discover nearby options and take the
+                next step — simply and quickly.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn"
+                    onclick="goToServices()">
+                    Find Healthcare →
+                </button>
+
+                <button class="secondary-btn"
+                    onclick="findLocationOnMap()">
+                    📍 Use My Location
+                </button>
+
+            </div>
+
+            <div class="trust">
+
+                <div>
+                    <strong>Quick</strong>
+                    <small>Find care faster</small>
+                </div>
+
+                <div>
+                    <strong>Nearby</strong>
+                    <small>Discover local options</small>
+                </div>
+
+                <div>
+                    <strong>Simple</strong>
+                    <small>Easy healthcare discovery</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Hero Finder Card -->
+
+        <div class="hero-card">
+
+            <div class="hero-card-label">
+                WHAT DO YOU NEED?
+            </div>
+
+            <h2>Find Healthcare</h2>
+
+            <p>
+                Start with what you need.
+            </p>
+
+            <div class="hero-services">
+
+                <button onclick="openService('Doctor')">
+                    <span>🩺</span>
+                    <b>Doctor</b>
+                </button>
+
+                <button onclick="openService('Medicines')">
+                    <span>💊</span>
+                    <b>Medicines</b>
+                </button>
+
+                <button onclick="findLocationOnMap()">
+                    <span>📍</span>
+                    <b>Nearby Care</b>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Floating Cards -->
+
+        <div class="floating-card floating-one">
+
+            <span>📍</span>
+
+            <div>
+                <b>Nearby Care</b>
+                <small>Find services around you</small>
+            </div>
+
+        </div>
+
+
+        <div class="floating-card floating-two">
+
+            <span>🚨</span>
+
+            <div>
+                <b>Emergency Support</b>
+                <small>Help when it matters</small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WHY CAREREACH
+    ====================================================== -->
+
+    <section class="why-care">
+
+        <div class="section-title">
+
+            <span>WHY CAREREACH?</span>
+
+            <h2>
+                Healthcare should be
+                <b>easy to find.</b>
+            </h2>
+
+            <p>
+                CareReach simplifies the journey from
+                needing care to reaching the right service.
+            </p>
+
+        </div>
+
+
+        <div class="why-grid">
+
+            <div class="why-card">
+
+                <div class="why-icon">⚡</div>
+
+                <h3>Quick</h3>
+
+                <p>
+                    Find relevant healthcare options
+                    without unnecessary searching.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">📍</div>
+
+                <h3>Nearby</h3>
+
+                <p>
+                    Discover healthcare services
+                    around your location.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">🤝</div>
+
+                <h3>Simple</h3>
+
+                <p>
+                    One simple place to find,
+                    understand and reach care.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SERVICES
+    ====================================================== -->
+
+    <section class="services-section" id="services">
+
+        <div class="section-title">
+
+            <span>HEALTHCARE SERVICES</span>
+
+            <h2>
+                What do you
+                <b>need today?</b>
+            </h2>
+
+            <p>
+                Choose a healthcare category and
+                start finding the right service.
+            </p>
+
+        </div>
+
+
+        <div class="services-grid">
+
+            <div class="service-card"
+                onclick="openService('Doctor')">
+
+                <div class="service-icon blue">
+                    🩺
+                </div>
+
+                <h3>Doctor</h3>
+
+                <p>
+                    Find doctors, clinics and
+                    specialist care.
+                </p>
+
+                <span>Find Doctor →</span>
+
+            </div>
+
+
+            <div class="service-card"
+                onclick="openService('Medicines')">
+
+                <div class="service-icon green">
+                    💊
+                </div>
+
+                <h3>Medicines</h3>
+
+                <p>
+                    Find pharmacies and
+                    medical stores nearby.
+                </p>
+
+                <span>Find Medicines →</span>
+
+            </div>
+
+
+            <div class="service-card"
+                onclick="openService('Tests')">
+
+                <div class="service-icon purple">
+                    🧪
+                </div>
+
+                <h3>Medical Tests</h3>
+
+                <p>
+                    Find diagnostic centres,
+                    tests and scans.
+                </p>
+
+                <span>Find Tests →</span>
+
+            </div>
+
+
+            <div class="service-card"
+                onclick="openService('Hospital')">
+
+                <div class="service-icon red">
+                    🏥
+                </div>
+
+                <h3>Hospital</h3>
+
+                <p>
+                    Discover hospitals and
+                    healthcare facilities.
+                </p>
+
+                <span>Find Hospital →</span>
+
+            </div>
+
+
+            <div class="service-card"
+                onclick="openService('Family Care')">
+
+                <div class="service-icon orange">
+                    👨‍👩‍👧
+                </div>
+
+                <h3>Family Care</h3>
+
+                <p>
+                    Healthcare options for
+                    you and your family.
+                </p>
+
+                <span>Explore Care →</span>
+
+            </div>
+
+
+            <div class="service-card emergency-card"
+                onclick="emergencyHelp()">
+
+                <div class="service-icon emergency-icon">
+                    🚨
+                </div>
+
+                <h3>Emergency</h3>
+
+                <p>
+                    Get immediate emergency
+                    support when needed.
+                </p>
+
+                <span>Get Help →</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SMART CARE FINDER
+    ====================================================== -->
+
+    <section class="finder-section" id="finder">
+
+        <div class="smart-search">
+
+            <div class="finder-content">
+
+                <span class="finder-label">
+                    SMART CARE FINDER
+                </span>
+
+                <h2>
+                    Tell us what you need.
+                    <b>We'll help you find it.</b>
+                </h2>
+
+                <p>
+                    Describe your healthcare need in simple
+                    words and CareReach will understand the
+                    category you are looking for.
+                </p>
+
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        id="needInput"
+                        placeholder="Example: I need a pharmacy near me..."
+                        onkeydown="if(event.key === 'Enter') understandNeed()">
+
+                    <button onclick="understandNeed()">
+                        Find Care →
+                    </button>
+
+                </div>
+
+
+                <div class="quick-needs">
+
+                    <span>Try:</span>
+
+                    <button onclick="quickNeed('doctor')">
+                        🩺 Doctor
+                    </button>
+
+                    <button onclick="quickNeed('pharmacy')">
+                        💊 Pharmacy
+                    </button>
+
+                    <button onclick="quickNeed('test')">
+                        🧪 Medical Test
+                    </button>
+
+                    <button onclick="quickNeed('hospital')">
+                        🏥 Hospital
+                    </button>
+
+                </div>
+
+
+                <div id="aiResult"
+                    class="ai-result">
+                    💡 Tell us what healthcare service
+                    you need.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAP / NEARBY CARE
+    ====================================================== -->
+
+    <section class="map-section" id="map-section">
+
+        <div class="section-title">
+
+            <span>NEARBY CARE</span>
+
+            <h2>
+                Find care
+                <b>near you.</b>
+            </h2>
+
+            <p>
+                Use your location to discover nearby
+                healthcare facilities.
+            </p>
+
+        </div>
+
+
+        <div class="map-wrapper">
+
+            <div class="map-container">
+
+                <div id="careMap">
+
+                    <div class="map-start">
+
+                        <div class="map-start-icon">
+                            📍
+                        </div>
+
+                        <h3>
+                            Find Healthcare Near You
+                        </h3>
+
+                        <p>
+                            Allow location access to discover
+                            nearby healthcare services.
+                        </p>
+
+                        <button onclick="findLocationOnMap()">
+                            📍 Find My Location
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="map-status">
+                    📍 Location ready
+                </div>
+
+
+                <div class="map-controls">
+
+                    <button onclick="findLocationOnMap()">
+                        📍 Find Healthcare Near Me
+                    </button>
+
+                    <div class="map-filters">
+
+                        <button
+                            class="filter-btn active"
+                            onclick="filterHealthcare('all')">
+                            All
+                        </button>
+
+                        <button
+                            class="filter-btn"
+                            onclick="filterHealthcare('hospital')">
+                            🏥 Hospital
+                        </button>
+
+                        <button
+                            class="filter-btn"
+                            onclick="filterHealthcare('doctor')">
+                            🩺 Doctor
+                        </button>
+
+                        <button
+                            class="filter-btn"
+                            onclick="filterHealthcare('pharmacy')">
+                            💊 Pharmacy
+                        </button>
+
+                        <button
+                            class="filter-btn"
+                            onclick="filterHealthcare('test')">
+                            🧪 Tests
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Results -->
+
+            <div class="results-panel">
+
+                <div class="results-header">
+
+                    <div>
+                        <span>NEARBY RESULTS</span>
+
+                        <h3>
+                            Healthcare options
+                        </h3>
+                    </div>
+
+                    <strong id="resultsCount">
+                        0 facilities
+                    </strong>
+
+                </div>
+
+
+                <div id="healthcareResults">
+
+                    <div class="results-empty">
+
+                        <div class="empty-icon">
+                            📍
+                        </div>
+
+                        <h4>
+                            Find healthcare near you
+                        </h4>
+
+                        <p>
+                            Use your location to see
+                            nearby healthcare options.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+    ====================================================== -->
+
+    <section class="how-section" id="how-it-works">
+
+        <div class="section-title">
+
+            <span>HOW IT WORKS</span>
+
+            <h2>
+                Need → Find → <b>Reach</b>
+            </h2>
+
+            <p>
+                Healthcare discovery made simple
+                in three steps.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="step-icon">
+                    💡
+                </div>
+
+                <h3>
+                    Choose your need
+                </h3>
+
+                <p>
+                    Tell CareReach whether you
+                    need a doctor, medicine,
+                    test or hospital.
+                </p>
+
+            </div>
+
+
+            <div class="step-line"></div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="step-icon">
+                    📍
+                </div>
+
+                <h3>
+                    Find nearby care
+                </h3>
+
+                <p>
+                    Discover relevant healthcare
+                    services around your location.
+                </p>
+
+            </div>
+
+
+            <div class="step-line"></div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="step-icon">
+                    🚶
+                </div>
+
+                <h3>
+                    Reach the service
+                </h3>
+
+                <p>
+                    Get directions and take the
+                    next step towards care.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         OUR GOAL
+    ====================================================== -->
+
+    <section class="goal-section">
+
+        <div class="goal-box">
+
+            <div class="goal-content">
+
+                <span>OUR GOAL</span>
+
+                <h2>
+                    Making healthcare
+                    <b>easier to reach.</b>
+                </h2>
+
+                <p>
+                    CareReach aims to simplify healthcare
+                    discovery by connecting people with
+                    nearby services when they need them.
+                </p>
+
+            </div>
+
+
+            <div class="goal-points">
+
+                <div>
+                    <strong>ACCESS</strong>
+                    <span>Find care</span>
+                </div>
+
+                <div>
+                    <strong>AWARENESS</strong>
+                    <span>Understand options</span>
+                </div>
+
+                <div>
+                    <strong>ACTION</strong>
+                    <span>Reach the service</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         EMERGENCY
+    ====================================================== -->
+
+    <section class="quick-emergency" id="emergency">
+
+        <div class="emergency-content">
+
+            <span class="emergency-label">
+                🚨 EMERGENCY SUPPORT
+            </span>
+
+            <h2>
+                Need urgent help?
+            </h2>
+
+            <p>
+                For emergencies, contact emergency
+                services immediately.
+            </p>
+
+        </div>
+
+
+        <div class="emergency-actions">
+
+            <button
+                class="call-btn"
+                onclick="emergencyHelp()">
+                📞 Call 112
+            </button>
+
+            <button
+                class="emergency-map-btn"
+                onclick="findEmergency()">
+                🏥 Find Emergency Hospital
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <div class="footer-logo">
+                    <span>+</span>
+                    CareReach
+                </div>
+
+                <p>
+                    Healthcare access made simple
+                    for everyone.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#home">Home</a>
+
+                <a href="#services">Services</a>
+
+                <a href="#map-section">Nearby Care</a>
+
+                <a href="#how-it-works">
+                    How It Works
+                </a>
+
+                <a href="#emergency">
+                    Emergency
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 CareReach
+            </span>
+
+            <span>
+                Built by <b>Syed Ayesha</b> ·
+                CSE — AIML
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Leaflet JS -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+    <!-- Main JavaScript -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
